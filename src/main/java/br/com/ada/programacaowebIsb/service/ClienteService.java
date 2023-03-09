@@ -35,7 +35,7 @@ public class ClienteService {
         return this.clienteRepository.findById(id);
     }
 
-    public Optional<Cliente> buscarClientePelpCpf(String cpf) {
+    public Optional<Cliente> buscarClientePeloCpf(String cpf) {
         return this.clienteRepository.findByCpfContaining(cpf);
     }
 
