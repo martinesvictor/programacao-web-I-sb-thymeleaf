@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{base :: layout (~{:: main})}">
+<head>
+    <meta charset="UTF-8" />
+</head>
+<body>
+<main>
+<form th:action="${add} ? @{/cliente/add} : @{/cliente/{clienteId}/edit(clienteId=${cliente.id})}"
+      th:object="${cliente}" th:method="${add} ? POST : PUT">
+    <div class="container">
+        <h1 th:text="${add} ? 'Cadastrar Cliente' : 'Editar Cliente'"></h1>
+        <div th:if="${cliente.id}" class="mb-3 row">
+            <label for="inputId" class="col-sm-2 col-form-label">Id</label>
+            <div class="col-sm-3">
+                <input type="text" th:readonly="${add} ? 'false' : 'true'" th:field="${cliente.id}" class="form-control" id="inputId">
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="inputCpf" class="col-sm-2 col-form-label">Cpf</label>
+            <div class="col-sm-3">
+                <input type="text" th:readonly="${add} ? 'false' : 'true'" th:field="*{cpf}" class="form-control" id="inputCpf">
+                <ul>
+                    <li th:each="erro : ${#fields.errors('cpf')}" th:text="${erro}" />
+                </ul>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="inputNome" class="col-sm-2 col-form-label">Nome</label>
+            <div class="col-sm-3">
+                <input type="text" th:field="*{nome}" class="form-control" id="inputNome">
+            </div>
+        </div>
+        <input type="submit" value="Gravar" class="btn btn-primary mb-3"/>
+        <br/><br/>
+        <a th:href="@{/clientes}">Voltar</a>
+    </div>
+</form>
+<br/>
+</main>
+</body>
+</html>
